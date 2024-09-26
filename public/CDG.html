@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDG Section</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #e9ecef;
+            color: #343a40;
+            font-size: 16px;
+        }
+
+        td {
+            background-color: #f8f9fa;
+        }
+
+        td input[type="text"], td input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        td input[type="text"]:focus, td input[type="file"]:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
+
+            td input[type="text"], td input[type="file"], button {
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+            }
+
+            th, td {
+                border: none;
+            }
+
+            th {
+                background-color: transparent;
+                font-weight: bold;
+            }
+        }
+
+        /* Stronger shadow and color contrast for accessibility */
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CDG Section -->
+    <div id="cdg" class="section">
+        <h2>CDG Section</h2>
+
+        <!-- Add New Product Table -->
+        <div>
+            <h3>Add New Product</h3>
+            <form>
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Input</th>
+                    </tr>
+                    <tr>
+                        <td>Product Name <span style="color: red;">*</span></td>
+                        <td><input type="text" id="product-name" placeholder="Enter Product Name" required></td>
+                    </tr>
+                    <tr>
+                        <td>Product Model No <span style="color: red;">*</span></td>
+                        <td><input type="text" id="product-model" placeholder="Enter Product Model No" required></td>
+                    </tr>
+                    <tr>
+                        <td>Revision <span style="color: red;">*</span></td>
+                        <td><input type="text" id="product-revision" placeholder="Enter Revision" required></td>
+                    </tr>
+                    <tr>
+                        <td>Upload BOM/Edit BOM <span style="color: red;">*</span></td>
+                        <td><input type="file" id="upload-bom" required></td>
+                    </tr>
+                </table>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="cdg.js"></script>
+</body>
+
+</html>

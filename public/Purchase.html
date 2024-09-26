@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Order Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+
+        /* Blue buttons similar to CDG interface style */
+        button {
+            padding: 15px;
+            margin: 10px;
+            background-color: #007bff; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue when hovering */
+        }
+
+        /* Hide all sections initially */
+        .section {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Inputs and Select elements */
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Hide main buttons when form is displayed */
+        .hidden {
+            display: none;
+        }
+
+        /* Form submit buttons */
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Main Buttons -->
+    <div id="mainButtons">
+        <button onclick="showSection('supplierSection')">Supplier</button>
+        <button onclick="showSection('itemSection')">Items</button>
+        <button onclick="showSection('purchaseSection')">Purchase</button>
+    </div>
+
+    <!-- Supplier Section -->
+    <div id="supplierSection" class="section">
+        <h3>Supplier Operations</h3>
+
+        <!-- Add Supplier Form -->
+        <h3>Add Supplier</h3>
+        <form id="addSupplierForm">
+            <input type="text" id="supplierName" placeholder="Supplier Name" required />
+            <input type="text" id="supplierContact" placeholder="Supplier Contact" required />
+            <input type="email" id="supplierEmail" placeholder="Supplier Email" required />
+            <input type="text" id="supplierAddress" placeholder="Supplier Address" required />
+            <button type="submit">Add Supplier</button>
+        </form>
+
+        <!-- Back Button -->
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Item Section -->
+    <div id="itemSection" class="section">
+        <h3>Item Operations</h3>
+
+        <!-- Add Item Form -->
+        <h3>Add Item</h3>
+        <form id="addItemForm">
+            <input type="text" id="itemName" placeholder="Item Name" required />
+            <input type="text" id="itemCode" placeholder="Item Code" required />
+            <input type="number" id="itemPrice" placeholder="Item Price" required />
+            <input type="number" id="itemStock" placeholder="Stock Quantity" required />
+            <button type="submit">Add Item</button>
+        </form>
+
+        <!-- Back Button -->
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Purchase Section -->
+    <div id="purchaseSection" class="section">
+        <h3>Purchase Order Operations</h3>
+
+        <!-- Create Purchase Order -->
+        <h3>Create Purchase Order</h3>
+        <form id="createPoForm">
+            <!-- Select Supplier -->
+            <label for="supplierSelect">Select Supplier:</label>
+            <select id="supplierSelect" required>
+                <!-- Supplier options will be dynamically populated -->
+            </select>
+
+            <!-- Select Items (Multiple Selection) -->
+            <label for="itemSelect">Select Items:</label>
+            <div id="itemSelectContainer">
+                <!-- Items and quantity inputs will be dynamically populated -->
+            </div>
+
+            <!-- Submit PO -->
+            <button type="submit">Create Purchase Order</button>
+        </form>
+
+        <!-- Back Button -->
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        // Function to show the selected section and hide other elements
+        function showSection(sectionId) {
+            // Hide main buttons
+            document.getElementById('mainButtons').classList.add('hidden');
+
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Function to go back to the main buttons
+        function goBack() {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show main buttons
+            document.getElementById('mainButtons').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>

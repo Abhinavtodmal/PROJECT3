@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            background-color: #eceaea;
+            border-right: 1px solid #ddd;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+            transform: translateX(0); /* Initially visible */
+            z-index: 1; /* Ensure it's below the button */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space between top and bottom content */
+        }
+
+        .profile-section {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(to bottom, #ff00b3, #2857a7); /* Smooth gradient from pink to blue */
+            border-radius: 8px;
+            z-index: 1000; /* Ensure it is above the sidebar */
+            width: 135px;
+            height: 150px;
+        }
+
+        .profile-section img {
+            width: 80px; /* Size of profile picture */
+            height: 80px; /* Size of profile picture */
+            border-radius: 50%;
+            border: 2px solid #fff; /* Optional: white border around the profile picture */
+            margin-bottom: 15px; /* Space between image and logout button */
+        }
+
+        .profile-section button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 10px 15px; /* Padding for button */
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px; /* Space between image and logout button */
+        }
+
+        .profile-section button:hover {
+            background-color: #e60000;
+        }
+
+        .menu {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin-top: auto; /* Pushes the menu to the bottom of the sidebar */
+            
+            margin-bottom: 70px;
+        }
+        
+
+        .menu h2 {
+            margin: -10 0 20px 0;
+            font-size: 18px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%); /* Hide sidebar */
+        }
+
+        .main-content {
+            margin-left: 210px;
+            padding: 70px 20px 20px 20px; /* Adjusted top padding for profile section */
+            box-sizing: border-box;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(to right, white, pink);
+            transition: margin-left 0.3s ease; /* Smooth transition */
+        }
+
+        .main-content.shifted {
+            margin-left: 0; /* Shift content when sidebar is hidden */
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 10px;
+            left: 210px; /* Align button with the start of the sidebar */
+            width: 100px;
+            height: 30px;
+            background-color: #c5cfdb;
+            color: #0d0202;
+            border: none;
+            border-radius: 5px; /* Slightly rounded corners */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+            z-index: 1000; /* Ensure it is above the sidebar */
+            transition: left 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #aab3c4; /* Slightly darker on hover */
+        }
+
+        .sidebar.hidden + .sidebar-toggle {
+            left: 10px; /* Move button to the left when sidebar is hidden */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ MENU</button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="profile-section">
+            <img src="admin.png" alt="Profile Picture">
+            <button id="logout-button">LOGOUT</button>
+        </div>
+
+        <div class="menu">
+           <center><h2 >-----------Main------------</h2> </center> 
+           
+            <a href="#" data-section="Dashboard.html">Dashboard</a>
+            <a href="#" data-section="Purchase.html">Purchase</a>
+            <a href="#" data-section="CDG.html">CDG</a>
+            <a href="#" data-section="PPC.html">PPC</a>
+            <a href="#" data-section="Store.html">Store</a>
+        </div>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <!-- Content will be loaded here -->
+        <iframe id="content-frame" src="Dashboard.html" width="100%" height="100%" style="border: none;"></iframe>
+    </div>
+
+    <!-- JavaScript for handling section visibility and sidebar toggle -->
+    <script >
+        function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+    sidebar.classList.toggle('hidden');
+    mainContent.classList.toggle('shifted');
+}
+
+document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = e.target.getAttribute('data-section');
+        document.getElementById('content-frame').src = section;
+    });
+});
+
+document.getElementById('logout-button').addEventListener('click', () => {
+    // Handle logout functionality here
+    alert('Logged out');
+});
+
+
+
+
+      
+    </script>
+</body>
+</html>

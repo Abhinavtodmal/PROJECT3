@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPC Section</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007BFF;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        td input[type="text"], td input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 15px;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            td input[type="text"], td input[type="number"], button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PPC Section -->
+    <div id="ppc" class="section">
+        <h2>PPC</h2>
+
+        <!-- Combined Form -->
+        <form id="ppc-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Create SO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label for="so-number">SO Number <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="so-number" name="so-number" placeholder="Enter SO Number" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="so-description">SO Description <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="so-description" name="so-description" placeholder="Enter SO Description" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="so-quantity">Quantity <span style="color: red;">*</span></label></td>
+                        <td><input type="number" id="so-quantity" name="so-quantity" placeholder="Enter Quantity" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="shortage-view">View Shortage <span style="color: red;">*</span></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="shortage-view" name="shortage-view" placeholder="Enter Shortage ID or Description" required></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
+        document.getElementById('ppc-form').addEventListener('submit', async function (event) {
+            event.preventDefault();  // Prevent the default form submission behavior
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            console.log("Data to be sent to the backend:", data);
+
+            try {
+                const response = await fetch('/submit-ppc', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                console.log(`Response received from server with status: ${response.status}`);
+
+                if (!response.ok) {
+                    console.error(`Error: ${response.status} - ${response.statusText}`);
+                } else {
+                    const result = await response.text();
+                    console.log(`Server response:`, result);
+                }
+            } catch (error) {
+                console.error(`Error during submission:`, error);
+            }
+        });
+    </script>
+</body>
+</html>

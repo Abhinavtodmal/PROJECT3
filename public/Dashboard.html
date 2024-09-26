@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: 250px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 10px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #007BFF;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .card p {
+            color: #555;
+            margin: 10px 0 0;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="dashboard.png" alt="Dashboard Image">
+        <h1>Inventory Management Dashboard</h1>
+    </div>
+    <div class="stats">
+        <div class="card">
+            <h3>₹ 11778</h3>
+            <p>Total Sales</p>
+        </div>
+        <div class="card">
+            <h3>10</h3>
+            <p>Total Purchases</p>
+        </div>
+        <div class="card">
+            <h3>9</h3>
+            <p>Total Stock</p>
+        </div>
+        <div class="card">
+            <h3>₹ 11491</h3>
+            <p>Total Stock Value</p>
+        </div>
+    </div>
+</body>
+       
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Function to fetch data from the backend and update the dashboard
+    async function fetchDashboardData() {
+        try {
+            // Fetch the data from your backend endpoint
+            const response = await fetch('/api/dashboard-data');  // Adjust this endpoint to your backend URL
+            const data = await response.json();
+
+            // Log the data to ensure it's received correctly
+            console.log('Fetched dashboard data:', data);
+
+            // Update the dashboard UI with the fetched data
+            document.querySelector('.card:nth-child(1) h3').textContent = `₹ ${data.totalSales}`;
+            document.querySelector('.card:nth-child(2) h3').textContent = data.totalPurchases;
+            document.querySelector('.card:nth-child(3) h3').textContent = data.totalStock;
+            document.querySelector('.card:nth-child(4) h3').textContent = `₹ ${data.totalStockValue}`;
+
+        } catch (error) {
+            console.error('Error fetching dashboard data:', error);
+        }
+    }
+
+    // Call the function to fetch and display the data when the page loads
+    fetchDashboardData();
+});
+
+  </script>
+</html>
